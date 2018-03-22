@@ -1,4 +1,4 @@
-FROM postgres:9.6.6
+FROM postgres:10.3-alpine
 
 ENV PGDATA=/usr/local/pgsql/data
 ENV POSTGRES_PASSWORD=password1
