@@ -13,13 +13,13 @@ services:
       container_name: postgres
       ports:
         - "127.0.0.1:30080:5432"
-      environment: 
+      environment:
         - PGDATA=/usr/local/pgsql/data
         - POSTGRES_PASSWORD=password1
         - POSTGRES_USER=espadev
         - POSTGRES_DB=espadev
-        - POSTGRES_INITDB_ARGS=-D $$PGDATA --locale en_US.UTF-8 -E UTF8 --auth-local=trust --auth-host=password
-      volumes: 
+        - POSTGRES_INITDB_ARGS=-D $$PGDATA --locale en_US.UTF-8 -E UTF8 -A trust
+      volumes:
          - postgres-volume:/usr/local/pgsql/data
 
 volumes:
