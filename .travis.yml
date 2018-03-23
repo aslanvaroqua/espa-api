@@ -1,6 +1,6 @@
 language: python
 python:
-- '2.7'
+- '3.6'
 services: docker
 sudo: required
 env:
@@ -11,23 +11,23 @@ env:
   - ESPA_API_EMAIL_RECEIVE=someone@nowhere.com
 cache: pip
 install:
-- pip install -r setup/requirements.txt
+- pip install -e .
+- pip install -e .[test]
 - pip install codecov
 script:
 - "travis_wait 30 sleep 1800 &"
-- "run/runtests"
+- "pytest --cov=./"
 after_success:
 - codecov
 deploy:
   - provider: script
-    script: make deploy
+    script: make docker-deploy
     on:
-      branch: master
-  - provider: script
-    script: make deploy
-    on:
-      branch: develop
-  - provider: script
-    script: make deploy
-    on:
-      branch: laboratory
+      branch:
+        - master
+        - develop
+        - laboratory
+notifications:
+  email:
+    on_success: never
+    on_failure: change
