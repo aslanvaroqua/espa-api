@@ -3,17 +3,12 @@ python:
 - '2.7'
 services: docker
 sudo: required
-dist: trusty
-group: deprecated-2017Q4
 env:
   global:
-  - COMMIT=${TRAVIS_COMMIT::8}
   - ESPA_ENV=dev
   - ESPA_MEMCACHE_HOST=localhost:30070
   - ESPA_CONFIG_PATH=${TRAVIS_BUILD_DIR}/run/config.ini
   - ESPA_API_EMAIL_RECEIVE=someone@nowhere.com
-before_install:
-- make docker-deps-up
 cache: pip
 install:
 - pip install -r setup/requirements.txt
@@ -22,7 +17,17 @@ script:
 - "travis_wait 30 sleep 1800 &"
 - "run/runtests"
 after_success:
-#- "/bin/bash deploy"
-- make docker-deps-down
 - codecov
-
+deploy:
+  - provider: script
+    script: make deploy
+    on:
+      branch: master
+  - provider: script
+    script: make deploy
+    on:
+      branch: develop
+  - provider: script
+    script: make deploy
+    on:
+      branch: laboratory
