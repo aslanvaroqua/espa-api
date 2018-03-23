@@ -28,19 +28,19 @@ debug:
 docker-deploy: debug build tag push
 
 docker-deps-up:
-	docker network create backend
-	docker-compose -f setup/docker-compose.yml up -d
+	@docker network create backend
+	@docker-compose -f setup/docker-compose.yml up -d
 
 docker-deps-up-nodaemon:
-	docker network create backend
-	docker-compose -f setup/docker-compose.yml up
+	@docker network create backend
+	@docker-compose -f setup/docker-compose.yml up
 
 docker-deps-down:
-	docker-compose -f setup/docker-compose.yml down -v
-	docker network rm backend
+	@docker-compose -f setup/docker-compose.yml down -v
+	@docker network rm backend
 
 test-local:
-	docker build --target tester -f Dockerfile -t $(COMMIT_TAG) --rm=true --compress $(PWD)
-	docker run --rm -t --net=backend $(COMMIT_TAG)
+	@docker build --target tester -f Dockerfile -t $(COMMIT_TAG) --rm=true --compress $(PWD)
+	@docker run --rm -t --net=backend $(COMMIT_TAG)
 
 test: docker-deps-up test-local docker-deps-down
