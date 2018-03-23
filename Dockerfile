@@ -23,7 +23,8 @@ ENTRYPOINT ["python3"]
 # ==========+ Server dependencies +==========
 FROM nginx/unit:0.7-python3.5 as wsgi
 COPY --from=baselayer /home/espadev/espa-api /home/espadev/espa-api
-RUN apt-get install sudo
+RUN apt-get update \
+    && apt-get install sudo
 RUN useradd www-espa-api
 RUN useradd nginx \
     && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
