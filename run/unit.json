@@ -1,0 +1,18 @@
+{
+    "listeners": {
+        "*:8300": {
+            "application": "espa-api"
+        }
+    },
+
+    "applications": {
+        "espa-api": {
+            "type": "python",
+            "processes": 20,
+            "user": "www-espa-api",
+            "group": "www-espa-api",
+            "path": "/home/espadev/espa-api",
+            "module": "api.http"
+        }
+    }
+}
