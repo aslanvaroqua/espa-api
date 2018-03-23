@@ -1,6 +1,6 @@
 
 # ==========+ Source Code dependencies +==========
-FROM python:3.5 as baselayer
+FROM python:3.6-slim as baselayer
 
 WORKDIR /usr/local/src
 COPY setup.py version.txt README.md /usr/local/src/
@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -e .
 
 RUN useradd espadev
-COPY . /home/espadev/espa-api
+COPY ./api/ /home/espadev/espa-api/api/
 WORKDIR /home/espadev/espa-api
 
 ENV ESPA_CONFIG_PATH=/home/espadev/espa-api/run/config.ini \
@@ -27,7 +27,10 @@ RUN apt-get update \
     && apt-get install sudo
 RUN useradd www-espa-api
 RUN useradd nginx \
-    && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+    && echo '%nginx ALL=(ALL) NOPASSWD:/usr/sbin/unitd' >> /etc/sudoers \
+    && echo '%nginx ALL=(ALL) NOPASSWD:/usr/bin/curl' >> /etc/sudoers \
+    && mkdir -p /var/run/unitd \
+    && chown -R nginx:nginx /var/run/unitd
 COPY run/unit.json /usr/local/unit.json
 COPY setup/unit-entrypoint.sh /entrypoint.sh
 ENV NGINX_UNITD_SOCK=/var/run/unitd/control.unit.sock \
