@@ -1,6 +1,0 @@
-#!/bin/bash
-
-source bin/activate
-
-uwsgi --ini api-dev-uwsgi.ini --catch-exceptions
-

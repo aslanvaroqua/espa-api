@@ -1,2 +1,0 @@
-class MockReportingProvider(object):
-    pass
