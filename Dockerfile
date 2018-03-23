@@ -25,12 +25,10 @@ ENTRYPOINT ["uwsgi", "run/uwsgi.ini"]
 
 # ==========+ Unit testing dependencies +==========
 FROM python:3.6-slim  as tester
-RUN apt-get update && apt-get install -y gcc
-
 WORKDIR /home/espadev/espa-api
-COPY . /home/espadev/espa-api/
+COPY --from=application /home/espadev/espa-api /home/espadev/espa-api/
+COPY --from=application /usr/local/lib/python3.6/site-packages /usr/local/lib/python3.6/site-packages
 
-RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -e . \
-    && pip install -e .[test]
+RUN pip install -e .[test]
+COPY ./test/ ./test/
 ENTRYPOINT ["pytest", "--cov=./"]
