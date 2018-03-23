@@ -7,7 +7,7 @@ COMMIT_TAG := $(REPO):$(COMMIT)
 BRANCH_TAG := $(REPO):$(BRANCH)-$(VERSION)
 
 build:
-	@docker build --target wsgi -f Dockerfile -t $(COMMIT_TAG) --rm=true --compress $(PWD)
+	@docker build --target application -f Dockerfile -t $(COMMIT_TAG) --rm=true --compress $(PWD)
 
 tag:
 	@docker tag $(COMMIT_TAG) $(BRANCH_TAG)

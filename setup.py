@@ -38,6 +38,7 @@ setup(name='espa-api',
           'suds-py3==1.3.3.0',
           'validate-email==1.3',
           'validictory==1.1.2',
+          'uWSGI==2.0.17',
       ],
       # List additional groups of dependencies here (e.g. development
       # dependencies). You can install these using the following syntax,
