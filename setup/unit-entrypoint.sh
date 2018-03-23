@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Enable Montior mode (required for fg)
+# Enable Monitor mode (required for fg)
 set -o monitor
 
 # TODO: Hopefully, someday, unit allows startup configuration...
