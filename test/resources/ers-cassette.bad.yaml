@@ -26,4 +26,13 @@ interactions:
     body: {string: '{}'}
     headers: {}
     status: {code: 503, message: OK}
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: http://ers/json3api/me
+  response:
+    body: {string: '{"data": {"username": "here", "otherdata": "missing"}, "errors":[],"status":10}'}
+    headers: {}
+    status: {code: 200, message: OK}
 version: 1
