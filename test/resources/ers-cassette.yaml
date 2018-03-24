@@ -10,15 +10,6 @@ interactions:
     status: {code: 200, message: OK}
 - request:
     body: null
-    headers: {}
-    method: POST
-    uri: http://isnothere/api/auth
-  response:
-    body: null
-    headers: {}
-    status: {code: 503, message: Unavailable}
-- request:
-    body: null
     headers:
       X-AuthToken: [fb0fc56dd0692391]
     method: GET
