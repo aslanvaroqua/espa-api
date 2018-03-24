@@ -39,3 +39,8 @@ def test_bad_login_response_format():
 def test_bad_login_response_data():
     with pytest.raises(ers.ErsInvalidResponse):
         token = ers.login('json2', 'json2', secret='46b5bdef021a6d1c', url='http://ers/json2api')
+
+@test.vcr.use_cassette(test.cassettes['ers.bad'])
+def test_bad_role_response_data():
+    with pytest.raises(ers.ErsInvalidResponse):
+        token = ers.roles('fb0fc56dd0692391', url='http://ers/json2api')
