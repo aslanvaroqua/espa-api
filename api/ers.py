@@ -1,4 +1,6 @@
 """This is the interface module to the EROS registration service"""
+import json
+import logging
 
 import requests
 
@@ -6,9 +8,8 @@ import requests
 def json_request(resource='login', data=None, headers=None,
                  verify=True, verb='get'):
     """ Common upstream api call """
-    args = (resource,)
     kwargs = dict(data=data, headers=headers, verify=verify)
-    resp = getattr(requests, verb)(*args, **kwargs)
+    resp = getattr(requests, verb)(resource, **kwargs)
     return resp.json()
 
 
@@ -22,10 +23,20 @@ class ErsInvalidResponse(Exception):
     pass
 
 
+class ErsUnavailable(Exception):
+    """ Raised on inability to connect to ERS """
+    pass
+
+
 def ers_api(url='', data=None, headers=None, verify=True, verb='get'):
     """ Interface layer to raise errors on ERS behavior """
-    response = json_request(resource=url, data=data, headers=headers,
-                            verify=verify, verb=verb)
+    try:
+        response = json_request(resource=url, data=data, headers=headers,
+                                verify=verify, verb=verb)
+    except json.decoder.JSONDecodeError as exc:
+        raise ErsInvalidLogin('Invalid login response')
+    except requests.exceptions.RequestException as exc:
+        raise ErsUnavailable()
     if response.get('errors'):
         raise ErsInvalidLogin(response['errors'])
     if 'data' not in response.keys():
@@ -44,10 +55,6 @@ def login(username, password, secret='', url='', resource='auth', verify=True):
         resource (str): api endpoint for the ERS application
         verify (bool): flag to enforce ssl certificate verification
 
-    Raises:
-        ErsInvalidLogin: Unable to authenticate supplied credentials
-        ErsInvalidResponse: Unexpected data returned from request
-
     Returns:
         str: auth token
 
@@ -56,8 +63,7 @@ def login(username, password, secret='', url='', resource='auth', verify=True):
         'fb0fc56dd0692391'
     """
     if not all((username, password)):
-        msg = 'Invalid credentials for username {}'.format(username)
-        raise ErsInvalidLogin(msg)
+        raise ErsInvalidLogin('Invalid username/password pair')
     url = '{}/{}'.format(url, resource)
     request = {
         'username': username,
