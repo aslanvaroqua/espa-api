@@ -7,4 +7,4 @@ cassettes = {
     'tram': 'test/resources/tram-cassette.yaml',
 }
 
-import hypothesis
+from hypothesis import given, note, strategies as st
