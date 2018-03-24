@@ -1,6 +1,7 @@
 .DEFAULT_GOAL := build
 VERSION    := $(or $(TRAVIS_TAG),`cat version.txt`)
 REPO       := $(or $(TRAVIS_REPO_SLUG),"`whoami`/$(shell basename $(shell pwd))")
+REPO       := "$(DOCKER_USER)/lagoon-armadillo"
 BRANCH     := $(or $(TRAVIS_BRANCH),`git rev-parse --abbrev-ref HEAD | tr / -`)
 COMMIT     := $(or $(TRAVIS_COMMIT),`git rev-parse HEAD`)
 COMMIT_TAG := $(REPO):$(COMMIT)
