@@ -19,3 +19,9 @@ def test_login():
 def test_bad_url():
     with pytest.raises(ers.ErsUnavailable) as exc:
         token = ers.login('user', 'pass', url='http://isnothere/api')
+
+@test.vcr.use_cassette(test.cassettes['ers'])
+def test_roles():
+    user = ers.roles('fb0fc56dd0692391', url='http://ers/api', verify=False)
+    assert isinstance(user, tuple)
+    assert len(user) == 4

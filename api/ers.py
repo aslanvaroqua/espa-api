@@ -88,12 +88,12 @@ def roles(token, url='', resource='me', verify=True):
     Returns:
         str: username
         str: email
-        int: contact_id
+        str: contact_id
         tuple: roles
 
     Example:
         >>> ers.roles('fb0fc56dd0692391')
-        ('username', 'password', (,))
+        ('username', 'email@site.com', '1099', (,))
     """
     url = '{}/{}'.format(url, resource)
     header = {
