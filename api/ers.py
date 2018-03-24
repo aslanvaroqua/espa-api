@@ -1,8 +1,8 @@
 """This is the interface module to the EROS registration service"""
-import json
 import logging
 
 import requests
+import simplejson
 
 
 def json_request(resource='login', data=None, headers=None,
@@ -33,7 +33,7 @@ def ers_api(url='', data=None, headers=None, verify=True, verb='get'):
     try:
         response = json_request(resource=url, data=data, headers=headers,
                                 verify=verify, verb=verb)
-    except json.decoder.JSONDecodeError as exc:
+    except simplejson.errors.JSONDecodeError as exc:
         raise ErsInvalidLogin('Invalid login response')
     except requests.exceptions.RequestException as exc:
         raise ErsUnavailable()
