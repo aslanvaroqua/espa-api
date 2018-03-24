@@ -1,0 +1,20 @@
+interactions:
+- request:
+    body: username=json&password=json&client_secret=46b5bdef021a6d1c
+    headers: {}
+    method: POST
+    uri: http://ers/xmlapi/auth
+  response:
+    body: {string: '<xml>Unable to find the user</xml>'}
+    headers: {}
+    status: {code: 200, message: OK}
+- request:
+    body: username=json&password=json&client_secret=46b5bdef021a6d1c
+    headers: {}
+    method: POST
+    uri: http://ers/json2api/auth
+  response:
+    body: {string: '{}'}
+    headers: {}
+    status: {code: 503, message: OK}
+version: 1

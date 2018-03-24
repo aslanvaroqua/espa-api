@@ -9,12 +9,12 @@ interactions:
     headers: {}
     status: {code: 200, message: OK}
 - request:
-    body: username=jsonpassword=json&client_secret=46b5bdef021a6d1c
+    body: username=username&password=password&client_secret=46b5bdef021a6d1c
     headers: {}
     method: POST
-    uri: http://ers/jsonapi/auth
+    uri: http://ers/noauth/auth
   response:
-    body: {string: '<xml>Unable to find the user</xml>'}
+    body: {string: '{"data":{"authToken":"fb0fc56dd0692391"},"errors":["WHOOPS!"],"status":17}'}
     headers: {}
     status: {code: 200, message: OK}
 - request:
