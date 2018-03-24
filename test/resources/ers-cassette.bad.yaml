@@ -28,11 +28,12 @@ interactions:
     status: {code: 503, message: OK}
 - request:
     body: null
-    headers: {}
+    headers:
+      X-AuthToken: [fb0fc56dd0692391]
     method: GET
     uri: http://ers/json3api/me
   response:
-    body: {string: '{"data": {"username": "here", "otherdata": "missing"}, "errors":[],"status":10}'}
+    body: {string: '{"data":{"username":"username", "roles": []},"errors":[],"status":10}'}
     headers: {}
     status: {code: 200, message: OK}
 version: 1
