@@ -15,6 +15,11 @@ def test_login():
                       url='http://ers/api')
     assert isinstance(token, str)
 
+@test.vcr.use_cassette(test.cassettes['ers'])
+def test_bad_login():
+    with pytest.raises(ers.ErsInvalidLogin):
+        token = ers.login('json', 'json', secret='46b5bdef021a6d1c', url='http://ers/jsonapi')
+
 def test_bad_url():
     with pytest.raises(ers.ErsUnavailable) as exc:
         token = ers.login('user', 'pass', url='http://isnothere/api')
