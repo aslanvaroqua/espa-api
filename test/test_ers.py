@@ -36,6 +36,11 @@ def test_bad_login_response_format():
         token = ers.login('json', 'json', secret='46b5bdef021a6d1c', url='http://ers/xmlapi')
 
 @test.vcr.use_cassette(test.cassettes['ers.bad'])
+def test_bad_login_missing_response_data():
+    with pytest.raises(ers.ErsInvalidResponse):
+        token = ers.login('json', 'json', secret='46b5bdef021a6d1c', url='http://ers/json4api')
+
+@test.vcr.use_cassette(test.cassettes['ers.bad'])
 def test_bad_login_response_data():
     with pytest.raises(ers.ErsInvalidResponse):
         token = ers.login('json2', 'json2', secret='46b5bdef021a6d1c', url='http://ers/json2api')
