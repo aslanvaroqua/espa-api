@@ -1,30 +1,31 @@
 interactions:
 - request:
     body: username=username&password=password&client_secret=46b5bdef021a6d1c
-    headers:
-      Accept: ['*/*']
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      Content-Length: ['89']
-      Content-Type: [application/x-www-form-urlencoded]
-      User-Agent: [python-requests/2.18.4]
+    headers: {}
     method: POST
     uri: http://ers/api/auth
   response:
     body: {string: '{"data":{"authToken":"fb0fc56dd0692391"},"errors":[],"status":10}'}
+    headers: {}
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers: {}
+    method: POST
+    uri: http://isnothere/api/auth
+  response:
+    body: null
+    headers: {}
+    status: {code: 503, message: Unavailable}
+- request:
+    body: null
     headers:
-      Cache-Control: ['no-store, no-cache, must-revalidate, post-check=0, pre-check=0']
-      Connection: [Keep-Alive]
-      Content-Length: ['81']
-      Content-Type: [text/html; charset=UTF-8]
-      Date: ['Sat, 24 Mar 2018 00:48:31 GMT']
-      Expires: ['Thu, 19 Nov 1981 08:52:00 GMT']
-      Keep-Alive: ['timeout=15, max=100']
-      Pragma: [no-cache]
-      Server: [Apache]
-      Set-Cookie: [PHPSESSID=fb0fc56dd0692391; path=/, PHPSESSID=fb0fc56dd0692391;
-          path=/]
-      Strict-Transport-Security: [max-age=31536000; includeSubDomains]
-      X-Frame-Options: [SAMEORIGIN]
+      X-AuthToken: [fb0fc56dd0692391]
+    method: GET
+    uri: http://ers/api/me
+  response:
+    body: {string: '{"data":{"username":"username", "email": "email@site.com", "contact_id":
+        "1099", "roles": []},"errors":[],"status":10}'}
+    headers: {}
     status: {code: 200, message: OK}
 version: 1
