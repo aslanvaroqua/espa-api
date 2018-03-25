@@ -12,11 +12,11 @@ RUN pip install --no-cache-dir --upgrade pip \
 COPY ./api/ /home/espadev/espa-api/api/
 COPY ./run/ /home/espadev/espa-api/run/
 
-ENV ESPA_CONFIG_PATH=/home/espadev/espa-api/run/config.ini \
+ENV ESPA_API_CONFIG_PATH=/home/espadev/espa-api/run/config.ini \
     ESPA_API_EMAIL_RECEIVE="someone@somewhere.com" \
-    ESPA_ENV="dev" \
-    ESPA_MEMCACHE_HOST="memcached:11211" \
-    ESPA_LOG_STDOUT=True
+    ESPA_API_ENV="dev" \
+    ESPA_API_MEMCACHE_HOST="memcached:11211" \
+    ESPA_API_LOG_STDOUT=True
 
 USER espadev
 EXPOSE 8303 8304 8305
