@@ -1,6 +1,6 @@
 import pytest
 
-from api import ers
+from api.auth import ers
 import test
 
 
