@@ -10,6 +10,9 @@ env:
   - ESPA_CONFIG_PATH=${TRAVIS_BUILD_DIR}/run/config.ini
   - ESPA_API_EMAIL_RECEIVE=someone@nowhere.com
 cache: pip
+before_install:
+- make docker-deps-up
+- export ESPA_API_DB_HOST=$(docker inspect -f "{{ .NetworkSettings.Networks.backend.IPAddress }}" postgres)
 install:
 - pip install -e .
 - pip install -e .[test]
@@ -18,6 +21,7 @@ script:
 - "travis_wait 30 sleep 1800 &"
 - "pytest --cov=./"
 after_success:
+- make docker-deps-down
 - codecov
 # deploy:
 #   - provider: script
