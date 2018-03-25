@@ -28,6 +28,11 @@ debug:
 
 docker-deploy: debug build tag push
 
+clean:
+	@rm -rf dist build lcmap_pyccd_worker.egg-info
+	@find . -name '*.pyc' -delete
+	@find . -name '__pycache__' -delete
+
 docker-deps-up:
 	@docker network create backend
 	@docker-compose -f setup/docker-compose.yml up -d
@@ -40,7 +45,7 @@ docker-deps-down:
 	@docker-compose -f setup/docker-compose.yml down -v
 	@docker network rm backend
 
-test-local:
+test-local: clean
 	@docker build --target tester -f Dockerfile -t $(COMMIT_TAG) --rm=true --compress $(PWD)
 	@docker run --rm -t --net=backend $(COMMIT_TAG)
 
