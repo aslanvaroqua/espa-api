@@ -38,14 +38,14 @@ CREATE SCHEMA espadev;
 ALTER SCHEMA espadev OWNER TO postgres;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -86,7 +86,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: auth_group; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_group; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE TABLE auth_group (
@@ -112,7 +112,7 @@ CREATE SEQUENCE auth_group_permissions_id_seq
 ALTER TABLE auth_group_permissions_id_seq OWNER TO espadev;
 
 --
--- Name: auth_group_permissions; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_group_permissions; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE TABLE auth_group_permissions (
@@ -139,7 +139,7 @@ CREATE SEQUENCE auth_message_id_seq
 ALTER TABLE auth_message_id_seq OWNER TO espadev;
 
 --
--- Name: auth_message; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_message; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE TABLE auth_message (
@@ -166,7 +166,7 @@ CREATE SEQUENCE auth_permission_id_seq
 ALTER TABLE auth_permission_id_seq OWNER TO espadev;
 
 --
--- Name: auth_permission; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_permission; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE TABLE auth_permission (
@@ -194,19 +194,13 @@ CREATE SEQUENCE auth_user_id_seq
 ALTER TABLE auth_user_id_seq OWNER TO espadev;
 
 --
--- Name: auth_user; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_user; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE TABLE auth_user (
     id integer DEFAULT nextval('auth_user_id_seq'::regclass) NOT NULL,
     username character varying(30) NOT NULL,
-    first_name character varying(30) NOT NULL,
-    last_name character varying(30) NOT NULL,
     email character varying(75) NOT NULL,
-    password character varying(128) NOT NULL,
-    is_staff boolean NOT NULL,
-    is_active boolean NOT NULL,
-    is_superuser boolean NOT NULL,
     last_login timestamp without time zone NOT NULL,
     date_joined timestamp without time zone NOT NULL,
     contactid character varying(10) NOT NULL
@@ -230,7 +224,7 @@ CREATE SEQUENCE auth_user_groups_id_seq
 ALTER TABLE auth_user_groups_id_seq OWNER TO espadev;
 
 --
--- Name: auth_user_groups; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_user_groups; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE TABLE auth_user_groups (
@@ -257,7 +251,7 @@ CREATE SEQUENCE auth_user_user_permissions_id_seq
 ALTER TABLE auth_user_user_permissions_id_seq OWNER TO espadev;
 
 --
--- Name: auth_user_user_permissions; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE TABLE auth_user_user_permissions (
@@ -284,7 +278,7 @@ CREATE SEQUENCE ordering_configuration_id_seq
 ALTER TABLE ordering_configuration_id_seq OWNER TO espadev;
 
 --
--- Name: ordering_configuration; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_configuration; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE TABLE ordering_configuration (
@@ -367,7 +361,7 @@ CREATE SEQUENCE ordering_order_id_seq
 ALTER TABLE ordering_order_id_seq OWNER TO espadev;
 
 --
--- Name: ordering_order; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_order; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE TABLE ordering_order (
@@ -407,7 +401,7 @@ CREATE SEQUENCE ordering_scene_id_seq
 ALTER TABLE ordering_scene_id_seq OWNER TO espadev;
 
 --
--- Name: ordering_scene; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_scene; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE TABLE ordering_scene (
@@ -469,7 +463,7 @@ CREATE SEQUENCE ordering_userprofile_id_seq
 ALTER TABLE ordering_userprofile_id_seq OWNER TO espadev;
 
 --
--- Name: ordering_userprofile; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_userprofile; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE TABLE ordering_userprofile (
@@ -496,7 +490,7 @@ CREATE SEQUENCE trans_etl_layer_transaction_seq
 ALTER TABLE trans_etl_layer_transaction_seq OWNER TO espadev;
 
 --
--- Name: trans_etl_layer; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: trans_etl_layer; Type: TABLE; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE TABLE trans_etl_layer (
@@ -513,7 +507,7 @@ CREATE TABLE trans_etl_layer (
 ALTER TABLE trans_etl_layer OWNER TO espadev;
 
 --
--- Name: auth_group_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_group_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 ALTER TABLE ONLY auth_group
@@ -521,7 +515,7 @@ ALTER TABLE ONLY auth_group
 
 
 --
--- Name: auth_group_permissions_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_group_permissions_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 ALTER TABLE ONLY auth_group_permissions
@@ -529,7 +523,7 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
--- Name: auth_message_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_message_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 ALTER TABLE ONLY auth_message
@@ -537,7 +531,7 @@ ALTER TABLE ONLY auth_message
 
 
 --
--- Name: auth_permission_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_permission_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 ALTER TABLE ONLY auth_permission
@@ -545,7 +539,7 @@ ALTER TABLE ONLY auth_permission
 
 
 --
--- Name: auth_user_groups_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_user_groups_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 ALTER TABLE ONLY auth_user_groups
@@ -553,7 +547,7 @@ ALTER TABLE ONLY auth_user_groups
 
 
 --
--- Name: auth_user_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_user_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 ALTER TABLE ONLY auth_user
@@ -561,7 +555,7 @@ ALTER TABLE ONLY auth_user
 
 
 --
--- Name: auth_user_user_permissions_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_user_user_permissions_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 ALTER TABLE ONLY auth_user_user_permissions
@@ -569,7 +563,7 @@ ALTER TABLE ONLY auth_user_user_permissions
 
 
 --
--- Name: ordering_configuration_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_configuration_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 ALTER TABLE ONLY ordering_configuration
@@ -577,7 +571,7 @@ ALTER TABLE ONLY ordering_configuration
 
 
 --
--- Name: ordering_order_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_order_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 ALTER TABLE ONLY ordering_order
@@ -585,7 +579,7 @@ ALTER TABLE ONLY ordering_order
 
 
 --
--- Name: ordering_scene_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_scene_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 ALTER TABLE ONLY ordering_scene
@@ -593,7 +587,7 @@ ALTER TABLE ONLY ordering_scene
 
 
 --
--- Name: ordering_userprofile_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_userprofile_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 ALTER TABLE ONLY ordering_userprofile
@@ -601,7 +595,7 @@ ALTER TABLE ONLY ordering_userprofile
 
 
 --
--- Name: trans_etl_layer_table_name_table_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: trans_etl_layer_table_name_table_id_pkey; Type: CONSTRAINT; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 ALTER TABLE ONLY trans_etl_layer
@@ -609,266 +603,266 @@ ALTER TABLE ONLY trans_etl_layer
 
 
 --
--- Name: auth_group_name; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_group_name; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE UNIQUE INDEX auth_group_name ON auth_group USING btree (name);
 
 
 --
--- Name: auth_group_permissions_group_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_group_permissions_group_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX auth_group_permissions_group_id ON auth_group_permissions USING btree (group_id);
 
 
 --
--- Name: auth_group_permissions_group_id_permission_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_group_permissions_group_id_permission_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE UNIQUE INDEX auth_group_permissions_group_id_permission_id ON auth_group_permissions USING btree (group_id, permission_id);
 
 
 --
--- Name: auth_group_permissions_permission_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_group_permissions_permission_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX auth_group_permissions_permission_id ON auth_group_permissions USING btree (permission_id);
 
 
 --
--- Name: auth_message_user_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_message_user_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX auth_message_user_id ON auth_message USING btree (user_id);
 
 
 --
--- Name: auth_permission_content_type_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_permission_content_type_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX auth_permission_content_type_id ON auth_permission USING btree (content_type_id);
 
 
 --
--- Name: auth_permission_content_type_id_codename; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_permission_content_type_id_codename; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE UNIQUE INDEX auth_permission_content_type_id_codename ON auth_permission USING btree (content_type_id, codename);
 
 
 --
--- Name: auth_user_groups_group_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_user_groups_group_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX auth_user_groups_group_id ON auth_user_groups USING btree (group_id);
 
 
 --
--- Name: auth_user_groups_user_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_user_groups_user_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX auth_user_groups_user_id ON auth_user_groups USING btree (user_id);
 
 
 --
--- Name: auth_user_groups_user_id_group_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_user_groups_user_id_group_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE UNIQUE INDEX auth_user_groups_user_id_group_id ON auth_user_groups USING btree (user_id, group_id);
 
 
 --
--- Name: auth_user_user_permissions_permission_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_user_user_permissions_permission_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX auth_user_user_permissions_permission_id ON auth_user_user_permissions USING btree (permission_id);
 
 
 --
--- Name: auth_user_user_permissions_user_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_user_user_permissions_user_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX auth_user_user_permissions_user_id ON auth_user_user_permissions USING btree (user_id);
 
 
 --
--- Name: auth_user_user_permissions_user_id_permission_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_user_user_permissions_user_id_permission_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE UNIQUE INDEX auth_user_user_permissions_user_id_permission_id ON auth_user_user_permissions USING btree (user_id, permission_id);
 
 
 --
--- Name: auth_user_username; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: auth_user_username; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE UNIQUE INDEX auth_user_username ON auth_user USING btree (username);
 
 
 --
--- Name: ordering_configuration_key; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_configuration_key; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE UNIQUE INDEX ordering_configuration_key ON ordering_configuration USING btree (key);
 
 
 --
--- Name: ordering_order_completion_date; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_order_completion_date; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX ordering_order_completion_date ON ordering_order USING btree (completion_date);
 
 
 --
--- Name: ordering_order_completion_email_sent; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_order_completion_email_sent; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX ordering_order_completion_email_sent ON ordering_order USING btree (completion_email_sent);
 
 
 --
--- Name: ordering_order_email; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_order_email; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX ordering_order_email ON ordering_order USING btree (email);
 
 
 --
--- Name: ordering_order_initial_email_sent; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_order_initial_email_sent; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX ordering_order_initial_email_sent ON ordering_order USING btree (initial_email_sent);
 
 
 --
--- Name: ordering_order_order_date; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_order_order_date; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX ordering_order_order_date ON ordering_order USING btree (order_date);
 
 
 --
--- Name: ordering_order_order_type; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_order_order_type; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX ordering_order_order_type ON ordering_order USING btree (order_type);
 
 
 --
--- Name: ordering_order_orderid; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_order_orderid; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE UNIQUE INDEX ordering_order_orderid ON ordering_order USING btree (orderid);
 
 
 --
--- Name: ordering_order_priority; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_order_priority; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX ordering_order_priority ON ordering_order USING btree (priority);
 
 
 --
--- Name: ordering_order_status; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_order_status; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX ordering_order_status ON ordering_order USING btree (status);
 
 
 --
--- Name: ordering_order_user_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_order_user_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX ordering_order_user_id ON ordering_order USING btree (user_id);
 
 
 --
--- Name: ordering_scene_completion_date; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_scene_completion_date; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX ordering_scene_completion_date ON ordering_scene USING btree (completion_date);
 
 
 --
--- Name: ordering_scene_name; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_scene_name; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX ordering_scene_name ON ordering_scene USING btree (name);
 
 
 --
--- Name: ordering_scene_order_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_scene_order_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX ordering_scene_order_id ON ordering_scene USING btree (order_id);
 
 
 --
--- Name: ordering_scene_retry_after; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_scene_retry_after; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX ordering_scene_retry_after ON ordering_scene USING btree (retry_after);
 
 
 --
--- Name: ordering_scene_sensor_type; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_scene_sensor_type; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX ordering_scene_sensor_type ON ordering_scene USING btree (sensor_type);
 
 
 --
--- Name: ordering_scene_status; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_scene_status; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX ordering_scene_status ON ordering_scene USING btree (status);
 
 
 --
--- Name: ordering_userprofile_user_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: ordering_userprofile_user_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE UNIQUE INDEX ordering_userprofile_user_id ON ordering_userprofile USING btree (user_id);
 
 
 --
--- Name: trans_etl_layer_table_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: trans_etl_layer_table_id; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX trans_etl_layer_table_id ON trans_etl_layer USING btree (table_id);
 
 
 --
--- Name: trans_etl_layer_transaction; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: trans_etl_layer_transaction; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX trans_etl_layer_transaction ON trans_etl_layer USING btree (transaction);
 
 
 --
--- Name: trans_etl_layer_trigger_count; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: trans_etl_layer_trigger_count; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX trans_etl_layer_trigger_count ON trans_etl_layer USING btree (trigger_count);
 
 
 --
--- Name: trans_etl_layer_trigger_date; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: trans_etl_layer_trigger_date; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX trans_etl_layer_trigger_date ON trans_etl_layer USING btree (trigger_date);
 
 
 --
--- Name: trans_etl_layer_trigger_date_trigger_read; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: trans_etl_layer_trigger_date_trigger_read; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX trans_etl_layer_trigger_date_trigger_read ON trans_etl_layer USING btree (trigger_date, trigger_read);
 
 
 --
--- Name: trans_etl_layer_trigger_read; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace: 
+-- Name: trans_etl_layer_trigger_read; Type: INDEX; Schema: espadev; Owner: espadev; Tablespace:
 --
 
 CREATE INDEX trans_etl_layer_trigger_read ON trans_etl_layer USING btree (trigger_read);
