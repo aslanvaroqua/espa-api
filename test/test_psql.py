@@ -30,6 +30,13 @@ def test_insert():
                               col_conflict='username', updates='contactid',
                               where={'username': 'greg'}, returning='id')
 
+def test_update():
+    sql = "UPDATE bigtable SET (level) = (%(level)s)"
+    assert sql == psql.update('bigtable', {"level": 9000})
+    sql = ("UPDATE otherone SET (yolo) = (%(yolo)s) WHERE level = %(level)s "
+           "RETURNING (id)")
+    assert sql == psql.update('otherone', {"yolo": "once"}, {"level": "9000"}, 'id')
+
 @mock.patch.dict(os.environ, {'ESPA_API_CONFIG_PATH': './run/config.ini'})
 @pytest.fixture(scope='module')
 def db():
