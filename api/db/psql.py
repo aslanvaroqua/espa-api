@@ -59,10 +59,11 @@ def filter_sql(compare='AND', **kwargs):
     """
     if not kwargs:
         return ""
-    sql = ' WHERE '
-    sql += ' {} '.format(compare).join(_fmt(key, value)
-                                       for key, value in kwargs.items())
-    return sql
+    return ''.join([
+        ' WHERE ',
+        ' {} '.format(compare).join(_fmt(key, value)
+                                    for key, value in kwargs.items())
+    ])
 
 
 def get(columns, table):
@@ -91,11 +92,11 @@ def conflict(col_conflict, values, updates, template='%({})s',
         return ""
     if isinstance(col_conflict, str):
         col_conflict = tuple([col_conflict])
-    return (
-        " ON CONFLICT ({c})".format(c=', '.join(col_conflict))
-        + " DO UPDATE SET ({0}) = ({1})".format(*_named_vals_fmt(updates))
-        + filter_sql(**where)
-    )
+    return ''.join([
+        " ON CONFLICT ({c})".format(c=', '.join(col_conflict)),
+        " DO UPDATE SET ({0}) = ({1})".format(*_named_vals_fmt(updates)),
+        filter_sql(**where)
+    ])
 
 
 def insert_into(values, table, template='%({})s'):
@@ -142,12 +143,12 @@ def insert(table, values, template='%({})s', col_conflict=None,
         "(%(contactid)s) WHERE username = %(username)s RETURNING (id)"
     """
     updates = tuple(k for k in values.keys() if (update_all or (updates is not None and k in updates)))
-    return (
-        insert_into(values=values, table=table, template=template)
-        + conflict(col_conflict=col_conflict, values=values, template=template,
-                   updates=updates, where=where)
-        + returner(returning)
-    )
+    return ''.join([
+        insert_into(values=values, table=table, template=template),
+        conflict(col_conflict=col_conflict, values=values, template=template,
+                 updates=updates, where=where),
+        returner(returning)
+    ])
 
 
 def update(table, values, where=None, returning=None, template='%({})s'):
@@ -170,9 +171,9 @@ def update(table, values, where=None, returning=None, template='%({})s'):
         "UPDATE otherone SET (yolo) = (%(yolo)s) WHERE level = %(level)s "
         "RETURNING (id)"
     """
-    return (
-        "UPDATE {t} SET ".format(t=table)
-        + "({0}) = ({1})".format(*_named_vals_fmt(values))
-        + filter_sql(**where or {})
-        + returner(returning)
-    )
+    return ''.join([
+        "UPDATE {t} SET ".format(t=table),
+        "({0}) = ({1})".format(*_named_vals_fmt(values)),
+        filter_sql(**where or {}),
+        returner(returning),
+    ])
