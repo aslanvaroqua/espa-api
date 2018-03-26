@@ -148,3 +148,31 @@ def insert(table, values, template='%({})s', col_conflict=None,
                    updates=updates, where=where)
         + returner(returning)
     )
+
+
+def update(table, values, where=None, returning=None, template='%({})s'):
+    """ Format statement to update columns in a table
+
+    Args:
+        table (str): database schema table of columns to update
+        values (dict): key/values of columns/values to update
+        where (dict): column filters to restrict update
+        returning (str): value to return from modified/created rows
+        template (str): format templating for keys as values
+
+    Returns:
+        str: sql statement
+
+    Examples:
+        >>> update('bigtable', {"level": 9000})
+        "UPDATE bigtable SET (level) = (%(level)s)"
+        >>> update('otherone', {"yolo": "once"}, {"level": "9000"}, 'id')
+        "UPDATE otherone SET (yolo) = (%(yolo)s) WHERE level = %(level)s "
+        "RETURNING (id)"
+    """
+    return (
+        "UPDATE {t} SET ".format(t=table)
+        + "({0}) = ({1})".format(*_named_vals_fmt(values))
+        + filter_sql(**where or {})
+        + returner(returning)
+    )
