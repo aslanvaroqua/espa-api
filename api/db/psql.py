@@ -77,3 +77,66 @@ def get(columns, table):
     """
     columns = tuple([columns]) if isinstance(columns, str) else columns
     return "SELECT {c} FROM {t}".format(c=', '.join(columns), t=table)
+
+
+def _named_vals_fmt(values, template='%({})s'):
+    """ Helper fuction to format insert statements """
+    return (', '.join(values), ', '.join(map(template.format, values)))
+
+
+def conflict(col_conflict, values, updates, template='%({})s',
+             where=None):
+    """ Column conflict formatting, see `insert` for arg descriptions """
+    if not col_conflict:
+        return ""
+    if isinstance(col_conflict, str):
+        col_conflict = tuple([col_conflict])
+    return (
+        " ON CONFLICT ({c})".format(c=', '.join(col_conflict))
+        + " DO UPDATE SET ({0}) = ({1})".format(*_named_vals_fmt(updates))
+        + filter_sql(**where)
+    )
+
+
+def insert_into(values, table, template='%({})s'):
+    """ Insert formatting, see `insert` for arg descriptions """
+    c, n =_named_vals_fmt(values.keys(), template)
+    sql = ("INSERT INTO {t} ({c}) VALUES ({n})".format(t=table, c=c, n=n))
+    return sql
+
+
+def insert(table, values, template='%({})s', col_conflict=None,
+           update_all=False, updates=None, where=None, returning=None):
+    """ Insert new values, with optional column conflict handling
+
+    Args:
+        table (str): database schema table to insert data into
+        values (dict): parameters to insert into table
+        template (str): format templating for keys as values
+        col_conflict (tuple): column to detect conflicts, to allow updates
+        update_all (bool): update all `values` on conflict
+        updates (tuple): columns to update on conflict
+        where (dict): filters for subsetting update on conflict
+        returning (str): value to return from modified/created rows
+
+    Returns:
+        str: full sql statement
+
+    Examples:
+        >>> insert("ordering_order", {"orderid": 1, "status": "ready"})
+        "INSERT INTO ordering_order (orderid, status) VALUES (%(orderid)s,
+        %(status)s)"
+        >>> insert("users", {"username": "greg", "contactid": 10},
+                   col_conflict='username', updates='contactid',
+                   where={'username': 'greg'}, returning='id')
+        "INSERT INTO users (username, contactid) VALUES (%(username)s, "
+        "%(contactid)s) ON CONFLICT (username) DO UPDATE SET (contactid) = "
+        "(%(contactid)s) WHERE username = %(username)s RETURNING (id)"
+    """
+    updates = tuple(k for k in values.keys() if (update_all or (updates is not None and k in updates)))
+    return (
+        insert_into(values=values, table=table, template=template)
+        + conflict(col_conflict=col_conflict, values=values, template=template,
+                   updates=updates, where=where)
+        + (" RETURNING ({r})".format(r=returning) if returning else '')
+    )
