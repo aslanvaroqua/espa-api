@@ -105,6 +105,14 @@ def insert_into(values, table, template='%({})s'):
     return sql
 
 
+def returner(column):
+    """ Helper to create sql of column to return on updates/inserts """
+    if isinstance(column, str):
+        column = tuple([column])
+    return (" RETURNING ({r})"
+            .format(r=', '.join(column)) if column else '')
+
+
 def insert(table, values, template='%({})s', col_conflict=None,
            update_all=False, updates=None, where=None, returning=None):
     """ Insert new values, with optional column conflict handling
@@ -138,5 +146,5 @@ def insert(table, values, template='%({})s', col_conflict=None,
         insert_into(values=values, table=table, template=template)
         + conflict(col_conflict=col_conflict, values=values, template=template,
                    updates=updates, where=where)
-        + (" RETURNING ({r})".format(r=returning) if returning else '')
+        + returner(returning)
     )
