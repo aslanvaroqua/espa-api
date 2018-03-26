@@ -65,7 +65,7 @@ def filter_sql(compare='AND', **kwargs):
     return sql
 
 
-def get(*columns, table):
+def get(columns, table):
     """ Format SQL to get columns from table
 
     Args:
@@ -75,4 +75,5 @@ def get(*columns, table):
     Returns:
         str: sql string
     """
+    columns = tuple([columns]) if isinstance(columns, str) else columns
     return "SELECT {c} FROM {t}".format(c=', '.join(columns), t=table)

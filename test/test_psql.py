@@ -13,7 +13,7 @@ def test_param_fmt():
 
 def test_base_sql():
     assert "SELECT name FROM tomato" == psql.get("name", table="tomato")
-    assert "SELECT hello, moto FROM tomato" == psql.get("hello", "moto", table="tomato")
+    assert "SELECT hello, moto FROM tomato" == psql.get(("hello", "moto"), table="tomato")
 
 def test_filter_sql():
     assert "" == psql.filter_sql()
