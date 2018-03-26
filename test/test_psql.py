@@ -20,6 +20,15 @@ def test_filter_sql():
     assert " WHERE username = %(username)s" == psql.filter_sql(username="eleven")
     assert " WHERE user = %(user)d AND roles in %(roles)s" == psql.filter_sql(user=10, roles=(10, 11))
 
+def test_insert():
+    sql = "INSERT INTO egg (roll) VALUES (%(roll)s)"
+    assert sql == psql.insert(table='egg', values={'roll': 'spring'})
+    sql = ("INSERT INTO users (username, contactid) VALUES (%(username)s, "
+           "%(contactid)s) ON CONFLICT (username) DO UPDATE SET (contactid) = "
+           "(%(contactid)s) WHERE username = %(username)s RETURNING (id)")
+    assert sql == psql.insert("users", {"username": "greg", "contactid": 10},
+                              col_conflict='username', updates='contactid',
+                              where={'username': 'greg'}, returning='id')
 
 @mock.patch.dict(os.environ, {'ESPA_API_CONFIG_PATH': './run/config.ini'})
 @pytest.fixture(scope='module')
