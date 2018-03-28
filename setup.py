@@ -40,6 +40,7 @@ setup(name='espa-api',
           'validate-email',
           'validictory',
           'uWSGI',
+          'marshmallow>=3.0.0*',
       ],
       # List additional groups of dependencies here (e.g. development
       # dependencies). You can install these using the following syntax,
