@@ -41,6 +41,7 @@ setup(name='espa-api',
           'validictory',
           'uWSGI',
           'marshmallow>=3.0.0*',
+          'python-dateutil',
       ],
       # List additional groups of dependencies here (e.g. development
       # dependencies). You can install these using the following syntax,
