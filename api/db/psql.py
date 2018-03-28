@@ -95,7 +95,7 @@ def conflict(col_conflict, values, updates, template='%({})s',
     return ''.join([
         " ON CONFLICT ({c})".format(c=', '.join(col_conflict)),
         " DO UPDATE SET ({0}) = ({1})".format(*_named_vals_fmt(updates)),
-        filter_sql(**where)
+        filter_sql(**where or {}),
     ])
 
 
