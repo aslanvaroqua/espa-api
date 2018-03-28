@@ -21,23 +21,21 @@ def connection(host='localhost', port=5432, dbname='postgres',
     return queries.Session(connection_string)
 
 
-def _fmt(key, value):
+def _fmt(key, value, template='s'):
     """ Helper SQL formatting to feed parametrized queries
 
     Examples:
         >>> _fmt('name', 'yogi')
         "name = %(name)s"
         >>> _fmt('id >=', 10)
-        "id >= %(id)d"
+        "id >= %(id)s"
     """
     ctypes = {tuple: 'in'}
-    stypes = {int: 'd', float: 'f'}
     if ' ' in key:
         key, compare = key.split()
     else:
         compare = ctypes.get(type(value), '=')
-    stype = stypes.get(type(value), 's')
-    fmtd_string = '{k} {c} %({k}){t}'.format(k=key, c=compare, t=stype)
+    fmtd_string = '{k} {c} %({k}){t}'.format(k=key, c=compare, t=template)
     return fmtd_string
 
 
@@ -55,7 +53,7 @@ def filter_sql(compare='AND', **kwargs):
         >>> filter_sql(username="eleven")
         " WHERE username = %(username)s"
         >>> filter_sql(user=10, roles=(10, 11))
-        " WHERE user = %(user)d AND roles in %(roles)s"
+        " WHERE user = %(user)s AND roles in %(roles)s"
     """
     if not kwargs:
         return ""

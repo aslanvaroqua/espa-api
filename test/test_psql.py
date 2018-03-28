@@ -9,7 +9,7 @@ from api.config import cfg
 
 def test_param_fmt():
     assert "name = %(name)s" == psql._fmt('name', 'yogi')
-    assert  "id >= %(id)d" == psql._fmt('id >=', 10)
+    assert  "id >= %(id)s" == psql._fmt('id >=', 10)
 
 def test_base_sql():
     assert "SELECT name FROM tomato" == psql.get("name", table="tomato")
@@ -18,7 +18,7 @@ def test_base_sql():
 def test_filter_sql():
     assert "" == psql.filter_sql()
     assert " WHERE username = %(username)s" == psql.filter_sql(username="eleven")
-    assert " WHERE user = %(user)d AND roles in %(roles)s" == psql.filter_sql(user=10, roles=(10, 11))
+    assert " WHERE user = %(user)s AND roles in %(roles)s" == psql.filter_sql(user=10, roles=(10, 11))
 
 def test_insert():
     sql = "INSERT INTO egg (roll) VALUES (%(roll)s)"
