@@ -12,6 +12,7 @@ def test_ping():
 def test_versions():
     response = hug.test.get(http, '/api/v2a')
     assert response.status == HTTP_404
+    assert response.data == {'errors': ['Not found on the server']}
 
 def test_v2_user():
     response = hug.test.get(http, '/api/v2a/user')
