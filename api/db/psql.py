@@ -83,7 +83,7 @@ def _named_vals_fmt(values, template='%({})s'):
     return (', '.join(values), ', '.join(map(template.format, values)))
 
 
-def conflict(col_conflict, values, updates, template='%({})s',
+def conflict(col_conflict, updates, template='%({})s',
              where=None):
     """ Column conflict formatting, see `insert` for arg descriptions """
     if not col_conflict:
@@ -143,7 +143,7 @@ def insert(table, values, template='%({})s', col_conflict=None,
     updates = tuple(k for k in values.keys() if (update_all or (updates is not None and k in updates)))
     return ''.join([
         insert_into(values=values, table=table, template=template),
-        conflict(col_conflict=col_conflict, values=values, template=template,
+        conflict(col_conflict=col_conflict, template=template,
                  updates=updates, where=where),
         returner(returning)
     ])
