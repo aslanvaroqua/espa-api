@@ -1,13 +1,14 @@
-"""First API, local access only"""
+""" API definition and root access routing """
+
 import hug
 
-from api.transport import user
-
-
-@hug.get('/', versions=(0, 1))
-def echo():
-    return 'Hi from root!'
+from api.transport import version2a
 
 
 api = hug.API(__name__)
-api.extend(user, route='/user')
+api.extend(version2a.api, route='/api/v2a')
+
+
+@hug.get('/')
+def ping():
+    return 'Welcome to the ESPA API, please direct requests to /api'
