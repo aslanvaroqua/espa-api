@@ -24,7 +24,8 @@ def test_v2_user_not_auth():
 
 @mock.patch('api.auth.ers.login', lambda x,y: False)
 def test_v2_user_bad_auth():
-    response = hug.test.get(http, '/api/v2a/user', headers={'Authorizaiton': 'Basic whoops:whoami'})
+    bad_auth_header = {'Authorization': b'Basic ' + b64encode('{0}:{1}'.format('WHOOPS!', 'whoami?').encode('utf8'))}
+    response = hug.test.get(http, '/api/v2a/user', headers=bad_auth_header)
     assert response.status == HTTP_401
     assert response.data == {'errors': {'Authentication Required': 'Please provide valid Basic HTTP Authentication credentials'}}
 
