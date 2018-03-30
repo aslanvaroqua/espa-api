@@ -20,6 +20,10 @@ def test_filter_sql():
     assert " WHERE username = %(username)s" == psql.filter_sql(username="eleven")
     assert " WHERE user = %(user)s AND roles in %(roles)s" == psql.filter_sql(user=10, roles=(10, 11))
 
+def test_conflict():
+    sql = " ON CONFLICT (moose) DO UPDATE SET (salmon) = (%(salmon)s)"
+    assert sql == psql.conflict(col_conflict='moose', updates=('salmon',))
+
 def test_insert():
     sql = "INSERT INTO egg (roll) VALUES (%(roll)s)"
     assert sql == psql.insert(table='egg', values={'roll': 'spring'})
