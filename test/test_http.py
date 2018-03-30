@@ -2,16 +2,18 @@ import pytest
 import hug
 from falcon import HTTP_400, HTTP_404, HTTP_200
 
-from api.transport import http, user
+from api.transport import http
 
-def test_root():
+def test_ping():
     response = hug.test.get(http, '/')
     assert response.status == HTTP_200
-    assert response.data == 'Hi from root!'
+    assert response.data == 'Welcome to the ESPA API, please direct requests to /api'
 
-def test_user():
-    response = hug.test.get(user, '/')
+def test_versions():
+    response = hug.test.get(http, '/api/v2a')
+    assert response.status == HTTP_404
+
+def test_v2_user():
+    response = hug.test.get(http, '/api/v2a/user')
     assert response.status == HTTP_200
-    assert response.data == 'hello /user!'
-    response = hug.test.get(http, '/user')
     assert response.data == 'hello /user!'
