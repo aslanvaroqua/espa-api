@@ -22,6 +22,12 @@ def test_v2_user_not_auth():
     assert response.status == HTTP_401
     assert response.data == {'errors': {'Authentication Required': 'Please provide valid Basic HTTP Authentication credentials'}}
 
+@mock.patch('api.auth.ers.login', lambda x,y: False)
+def test_v2_user_bad_auth():
+    response = hug.test.get(http, '/api/v2a/user', headers={'Authorizaiton': 'Basic whoops:whoami'})
+    assert response.status == HTTP_401
+    assert response.data == {'errors': {'Authentication Required': 'Please provide valid Basic HTTP Authentication credentials'}}
+
 @pytest.fixture
 def auth_header():
     return {
