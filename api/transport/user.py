@@ -1,8 +1,11 @@
-""" These are extensions of the /user api """
+""" Interface layer for user authentication/authorization """
 
 import hug
 
 
-@hug.get('/')
+api = hug.API(__name__)
+
+
+@hug.get('/', api=api)
 def get_user():
     return 'hello /user!'
