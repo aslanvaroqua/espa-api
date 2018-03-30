@@ -13,11 +13,12 @@ def test_make_user_partial_schema(user):
     assert user['username'] == user1['username']
     assert (set(user) | {'id', 'last_login', 'date_joined'}) == set(user1)
 
-def test_make_user_full_schema(user):
-    user.update(date_joined=datetime.datetime.utcnow())
-    user1 = UserEntrySchema().load(user)
-    assert user1['date_joined'] < datetime.datetime.utcnow()
-    assert user1['last_login'] > user1['date_joined']
+def test_make_user_dt_schema(user):
+    for dt in [datetime.datetime.utcnow(), str(datetime.datetime.utcnow())]:
+        user.update(date_joined=dt)
+        user1 = UserEntrySchema().load(user)
+        assert user1['date_joined'] < datetime.datetime.utcnow()
+        assert user1['last_login'] > user1['date_joined']
 
 def test_user_response_schema(user):
     user1 = UserResponseSchema().dump(UserResponseSchema().load(user))
