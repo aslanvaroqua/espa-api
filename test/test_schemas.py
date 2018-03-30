@@ -1,3 +1,4 @@
+import datetime
 import pytest
 
 from api.schema.user import (
@@ -7,10 +8,16 @@ from api.schema.user import (
 def user():
     return {"username": "jordan", "email": "mj@nba.com", "contactid": "23"}
 
-def test_make_user_schema(user):
+def test_make_user_partial_schema(user):
     user1 = UserEntrySchema().load(user)
     assert user['username'] == user1['username']
     assert (set(user) | {'id', 'last_login', 'date_joined'}) == set(user1)
+
+def test_make_user_full_schema(user):
+    user.update(date_joined=datetime.datetime.utcnow())
+    user1 = UserEntrySchema().load(user)
+    assert user1['date_joined'] < datetime.datetime.utcnow()
+    assert user1['last_login'] > user1['date_joined']
 
 def test_user_response_schema(user):
     user1 = UserResponseSchema().dump(UserResponseSchema().load(user))
