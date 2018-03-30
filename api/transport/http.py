@@ -14,5 +14,5 @@ def ping():
     return 'Welcome to the ESPA API, please direct requests to /api'
 
 @hug.not_found()
-def not_found():
-    return {'errors': ['Not found on the server']}
+def not_found(request):
+    return {'errors': {'Not found on the server': request.relative_uri}}
