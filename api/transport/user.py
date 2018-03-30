@@ -2,10 +2,12 @@
 
 import hug
 
+from api.transport.auth import authentication
+
 
 api = hug.API(__name__)
 
 
-@hug.get('/', api=api)
-def get_user():
-    return 'hello /user!'
+@hug.get('/', api=api, requires=authentication)
+def get_user(user: hug.directives.user):
+    return 'hello {}!'.format(user)
