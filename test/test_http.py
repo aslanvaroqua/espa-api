@@ -27,7 +27,7 @@ def test_v2_user_bad_auth():
     bad_auth_header = {'Authorization': b'Basic ' + b64encode('{0}:{1}'.format('WHOOPS!', 'whoami?').encode('utf8'))}
     response = hug.test.get(http, '/api/v2a/user', headers=bad_auth_header)
     assert response.status == HTTP_401
-    assert response.data == {'errors': {'Authentication Required': 'Please provide valid Basic HTTP Authentication credentials'}}
+    assert response.data == {'errors': {'Invalid Authentication': 'Provided Basic HTTP Authentication credentials were invalid'}}
 
 @pytest.fixture
 def auth_header():
