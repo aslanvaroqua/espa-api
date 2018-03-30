@@ -23,6 +23,8 @@ def test_filter_sql():
 def test_conflict():
     sql = " ON CONFLICT (moose) DO UPDATE SET (salmon) = (%(salmon)s)"
     assert sql == psql.conflict(col_conflict='moose', updates=('salmon',))
+    sql = " ON CONFLICT (moose, salmon) DO UPDATE SET (river) = (%(river)s)"
+    assert sql == psql.conflict(col_conflict=('moose', 'salmon'), updates=('river',))
 
 def test_insert():
     sql = "INSERT INTO egg (roll) VALUES (%(roll)s)"
