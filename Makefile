@@ -1,8 +1,8 @@
 .DEFAULT_GOAL := build
-VERSION    := $(or $(TRAVIS_TAG),`cat version.txt`)
-REPO       := $(or $(DOCKER_USER),"`whoami`")"/$(shell basename $(shell pwd))"
-BRANCH     := $(or $(TRAVIS_BRANCH),`git rev-parse --abbrev-ref HEAD | tr / -`)
-COMMIT     := $(or $(TRAVIS_COMMIT),`git rev-parse HEAD`)
+VERSION    := $(or $(TRAVIS_TAG),$(shell cat version.txt))
+REPO       := $(or $(DOCKER_USER),$(shell whoami))"/$(shell basename $(shell pwd))"
+BRANCH     := $(or $(TRAVIS_BRANCH),$(shell git rev-parse --abbrev-ref HEAD | tr / -))
+COMMIT     := $(or $(TRAVIS_COMMIT),$(shell git rev-parse HEAD))
 COMMIT_TAG := $(REPO):$(COMMIT)
 BRANCH_TAG := $(REPO):$(BRANCH)-$(VERSION)
 
@@ -11,9 +11,7 @@ build:
 
 tag:
 	@docker tag $(COMMIT_TAG) $(BRANCH_TAG)
-	ifeq ($(BRANCH),master)
-		@docker tag $(COMMIT_TAG) latest
-	endif
+	@[ $(BRANCH) == master ] && docker tag $(COMMIT_TAG) $(REPO):latest
 
 login:
 	@$(if $(and $(DOCKER_USER), $(DOCKER_PASS)), docker login -u $(DOCKER_USER) -p $(DOCKER_PASS), docker login)
