@@ -25,14 +25,13 @@ script:
 after_success:
 - make docker-deps-down
 - codecov
-# deploy:
-#   - provider: script
-#     script: make docker-deploy
-#     on:
-#       branch:
-#         - master
-#         - develop
-#         - laboratory
+deploy:
+  - provider: script
+    script: make docker-deploy
+    on:
+      branch:
+        - master
+        - develop
 notifications:
   email:
     on_success: never

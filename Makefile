@@ -1,7 +1,6 @@
 .DEFAULT_GOAL := build
 VERSION    := $(or $(TRAVIS_TAG),`cat version.txt`)
 REPO       := $(or $(TRAVIS_REPO_SLUG),"`whoami`/$(shell basename $(shell pwd))")
-REPO       := "$(DOCKER_USER)/lagoon-armadillo"
 BRANCH     := $(or $(TRAVIS_BRANCH),`git rev-parse --abbrev-ref HEAD | tr / -`)
 COMMIT     := $(or $(TRAVIS_COMMIT),`git rev-parse HEAD`)
 COMMIT_TAG := $(REPO):$(COMMIT)
@@ -12,6 +11,9 @@ build:
 
 tag:
 	@docker tag $(COMMIT_TAG) $(BRANCH_TAG)
+	ifeq ($(BRANCH), master)
+		@docker tag $(COMMIT_TAG) latest
+	endif
 
 login:
 	@$(if $(and $(DOCKER_USER), $(DOCKER_PASS)), docker login -u $(DOCKER_USER) -p $(DOCKER_PASS), docker login)
