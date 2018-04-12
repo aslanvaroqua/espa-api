@@ -11,7 +11,7 @@ build:
 
 tag:
 	@docker tag $(COMMIT_TAG) $(BRANCH_TAG)
-	ifeq ($(BRANCH), master)
+	ifeq ($(BRANCH),master)
 		@docker tag $(COMMIT_TAG) latest
 	endif
 
