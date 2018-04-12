@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := build
 VERSION    := $(or $(TRAVIS_TAG),`cat version.txt`)
-REPO       := $(or $(TRAVIS_REPO_SLUG),"`whoami`/$(shell basename $(shell pwd))")
+REPO       := $(or $(DOCKER_USER),"`whoami`")"/$(shell basename $(shell pwd))"
 BRANCH     := $(or $(TRAVIS_BRANCH),`git rev-parse --abbrev-ref HEAD | tr / -`)
 COMMIT     := $(or $(TRAVIS_COMMIT),`git rev-parse HEAD`)
 COMMIT_TAG := $(REPO):$(COMMIT)
