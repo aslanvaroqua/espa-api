@@ -31,7 +31,7 @@ deploy:
     on:
       branch:
         - master
-        - develop
+        - devel
 notifications:
   email:
     on_success: never
