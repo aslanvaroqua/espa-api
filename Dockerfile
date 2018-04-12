@@ -12,6 +12,8 @@ RUN pip install --no-cache-dir --upgrade pip \
 COPY ./api/ /home/espadev/espa-api/api/
 COPY ./run/ /home/espadev/espa-api/run/
 
+RUN mkdir -p /var/log/uwsgi \
+    && chown -R espadev:espadev /var/log/uwsgi
 ENV ESPA_API_CONFIG_PATH=/home/espadev/espa-api/run/config.ini \
     ESPA_API_EMAIL_RECEIVE="someone@somewhere.com" \
     ESPA_API_ENV="dev" \
