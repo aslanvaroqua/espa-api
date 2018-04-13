@@ -9,7 +9,6 @@ env:
   - ESPA_API_MEMCACHE_HOST=localhost:30070
   - ESPA_API_CONFIG_PATH=${TRAVIS_BUILD_DIR}/run/config.ini
   - ESPA_API_EMAIL_RECEIVE=someone@nowhere.com
-  - ESPA_API_LOG_STDOUT=True
   - ESPA_API_DB_HOST=localhost
   - ESPA_API_DB_PORT=30080
 cache: pip

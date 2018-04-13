@@ -17,8 +17,7 @@ RUN mkdir -p /var/log/uwsgi \
 ENV ESPA_API_CONFIG_PATH=/home/espadev/espa-api/run/config.ini \
     ESPA_API_EMAIL_RECEIVE="someone@somewhere.com" \
     ESPA_API_ENV="dev" \
-    ESPA_API_MEMCACHE_HOST="memcached:11211" \
-    ESPA_API_LOG_STDOUT=True
+    ESPA_API_MEMCACHE_HOST="memcached:11211"
 
 USER espadev
 EXPOSE 8303 8304 8305
