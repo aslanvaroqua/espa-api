@@ -21,7 +21,7 @@ ENV ESPA_API_CONFIG_PATH=/home/espadev/espa-api/run/config.ini \
 
 USER espadev
 EXPOSE 8303 8304 8305
-ENTRYPOINT ["uwsgi", "run/uwsgi.ini", "--logto2"]
+ENTRYPOINT ["uwsgi", "run/uwsgi.ini"]
 
 
 # ==========+ Unit testing dependencies +==========
