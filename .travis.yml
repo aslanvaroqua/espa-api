@@ -27,9 +27,10 @@ script:
 after_success:
 - make docker-deps-down
 - codecov
-deploy:
-  - provider: script
-    script: make docker-deploy
+- make docker-deploy
+# deploy:
+#   - provider: script
+#     script: make docker-deploy
 #    on:
 #      branch:
 #        - master
