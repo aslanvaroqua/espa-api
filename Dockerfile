@@ -9,8 +9,8 @@ COPY setup.py version.txt README.md /home/espadev/espa-api/
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -e .
 
-COPY ./api/ /home/espadev/espa-api/api/
 COPY ./run/ /home/espadev/espa-api/run/
+COPY ./api/ /home/espadev/espa-api/api/
 
 RUN mkdir -p /var/log/uwsgi \
     && chown -R espadev:espadev /var/log/uwsgi
@@ -22,7 +22,6 @@ ENV ESPA_API_CONFIG_PATH=/home/espadev/espa-api/run/config.ini \
 USER espadev
 EXPOSE 8303 8304 8305
 ENTRYPOINT ["uwsgi", "run/uwsgi.ini"]
-
 
 # ==========+ Unit testing dependencies +==========
 FROM python:3.6-slim  as tester

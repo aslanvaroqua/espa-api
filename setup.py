@@ -42,6 +42,7 @@ setup(name='espa-api',
           'uWSGI',
           'marshmallow>=3.0.0*',
           'python-dateutil',
+          'aiohttp',
       ],
       # List additional groups of dependencies here (e.g. development
       # dependencies). You can install these using the following syntax,
@@ -54,11 +55,20 @@ setup(name='espa-api',
               'vcrpy',
               'hypothesis',
                   ],
-          'doc': [],
-          'dev': [],
+          'doc': [
+              'sphinx',
+              'sphinx-autobuild',
+              'sphinx_rtd_theme'],
+          'dev': [
+              'pylint',
+              'mypy',
+              'pycodestyle',
+              'pydocstyle',
+          ],
       },
       entry_points={
           'console_scripts': [
+              'espa-dispatch = api.dispatch.cli:main'
           ],
       },
       include_package_data=True,
