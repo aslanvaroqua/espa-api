@@ -1,5 +1,7 @@
 **PROVISIONAL SOFTWARE DISCLAIMER**: This software is preliminary and is subject to revision.
 
+⚠️ The develop branch is not considered stable and can contain bugs or not build at all, use at your own risk.
+
 [![Build Status][tb]][tt] [![Codecov branch][cb]][cc] [![Docker Pulls][db]][dh] [![GitHub release][gb]][gr]
 
 [tb]: https://img.shields.io/travis/USGS-EROS/espa-api/docker-devel.svg?style=flat-square
