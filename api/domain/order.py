@@ -136,11 +136,36 @@ class Order(object):
         log_sql = ''
         try:
             with db_instance() as db:
+                # We cannot use Order.where here because Order.base_sql does
+                # not consider the ordering_scene table
+                scene_count_sql = (
+                    "SELECT COUNT(*)"
+                    "FROM ordering_scene s, ordering_order o"
+                    "WHERE s.order_id = o.id"
+                    "AND o.user_id = %(user_id)s"
+                    "AND s.status NOT IN ('complete', 'cancelled', 'purged')"
+                )
+                db.select(scene_count_sql, params)
+                existing_scene_count = db[0]
+                order_scene_count = len(
+                    [scene for key in opts for scene in opts[key]['inputs']]
+                )
+
+                # Calculate how many open scenes we'll have if we place this order
+                # FIXME: Avoid creating a singleton just to get the policy from the DB
+                open_scene_limit = APIv1().get_system_config()['policy.open_scene_limit']
+                new_scene_count = existing_scene_count + order_scene_count
+                excess_scene_count = new_scene_count - open_scene_limit
+                if (excess_scene_count > 0):
+                    logger.critical('%d too many scene(s) in order', excess_scene_count)
+                    raise OrderException() # XXX: Could be problematic
+
                 log_sql = db.cursor.mogrify(sql, params)
                 logger.info('New order complete SQL: {}'
                             .format(log_sql))
                 db.execute(sql, params)
                 db.commit()
+
         except DBConnectException as e:
             logger.critical('Error creating new order: {}\n'
                             'sql: {}'.format(e.message, log_sql))
